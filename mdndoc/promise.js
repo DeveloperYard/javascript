@@ -26,3 +26,11 @@ myPromise
 .then(handleResolvedB)
 .then(handleResolvedC)
 .catch(handleRejectedAny);
+
+// ..until Incumbent settings object tracking part
+
+// realm : 영역, 범위
+
+// incumbent : 재임자, (의무의 일부로) 필요한(해야 하는)
+
+
