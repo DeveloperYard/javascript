@@ -1,0 +1,79 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <h1>숫자를 입력하세요!!</h1>
+  <div>
+    <input id="input_num" type="text">
+    <button id="btn_submit">제출</button>
+    <button id="btn_chgClr">색 바꾸기</button>
+  </div>
+  <h1 id="result"></h1>
+  <!-- Event concept 필요!
+    사용자가 컴퓨터에게 어떤 행동을 일으키는 것 -> 위젯 컴포넌트!
+    예를 들어 버튼이나 슬라이드 바 등
+    여기에 컴퓨터에게 자극 -> 이벤트
+
+    event listener -> 버튼을 표시해놓고 사람이 오기를 기다림, 이벤트가 발생할 때 처리해주는 것 -> 리스너!
+    불남 -> 이벤트
+    소방서 -> 리스너
+    소방서에서 소방차를 보내 이벤트를 처리해줌!
+    함수를 지정해서 그 리스너를 실행시킴
+
+    실행시키기 위해 각 위젯 컴포넌트들을 자바스크립트의 변수와 연결시킴!
+  -->
+  <script>
+    // Red, Green, Blue ... % 3
+    const clr_arr = ['red', 'green', 'blue', 'pink', 'yellow'];
+    let clr_idx = 0;
+    // component, widget!
+    const w_btn_submit = document.querySelector('#btn_submit');
+    const w_btn_chgClr = document.querySelector('#btn_chgClr');
+    const w_input = document.querySelector('#input_num');
+    const w_h1_result = document.querySelector('#result');
+
+    /*
+      n이 짝수면 true, else false return
+    */
+    const isEven = (n) => {
+      if (n % 2 == 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    };
+    // listener set!
+    w_btn_chgClr.addEventListener('click', () => {
+      clr_idx = (clr_idx + 1) % clr_arr.length;
+      console.log('현재 색은 : ' + clr_arr[clr_idx]);
+      w_h1_result.style.color = clr_arr[clr_idx];
+    });
+
+    w_btn_submit.addEventListener('click', () => {
+      console.log('pushed button!');
+
+      const temp = parseInt(w_input.value); // 문자열로 가져오므로 숫자로 파싱!
+      // Nan : Not a number
+      // w_h1_result.textContent = temp + '';
+      // 홀짝 구분!
+      if (!temp) { // NaN
+        w_h1_result.textContent = "제대로 입력하시오!"
+      }
+      else {
+        let decision = '홀수'
+        if (isEven(temp) === true) {
+          decision = '짝수'
+        }
+        w_h1_result.textContent = temp + '는' + decision + '네요';
+      }
+      w_input.value = ''; // 입력할 수 있도록 제출창을 지운다.
+      w_input.focus(); // 입력할 수 있도록 지워지고 나서도 커서를 유지시킨다.
+    });
+  </script>
+</body>
+
+</html>
