@@ -1,0 +1,135 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    button {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+    }
+
+    #operator {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      text-align: center;
+    }
+
+    #result {
+      width: 180px;
+      height: 50px;
+      margin: 5px;
+      text-align: right;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <input type="text" id="operator" readonly>
+    <input type="text" id="result" readonly>
+  </div>
+  <div>
+    <button id="n7">7</button>
+    <button id="n8">8</button>
+    <button id="n9">9</button>
+    <button id="op_plus">+</button>
+  </div>
+  <div>
+    <button id="n4">4</button>
+    <button id="n5">5</button>
+    <button id="n6">6</button>
+    <button id="op_sub">-</button>
+  </div>
+  <div>
+    <button id="n1">1</button>
+    <button id="n2">2</button>
+    <button id="n3">3</button>
+    <button id="op_mul">*</button>
+  </div>
+  <div>
+    <button id="op_clr">clear</button>
+    <button id="n0">0</button>
+    <button id="op_calc">=</button>
+    <button id="op_div">/</button>
+  </div>
+  <script>
+    // 계산기 기능 구현!
+    let first_num = '';
+    let second_num = '';
+    let op_input = null;
+    function numFunc(n) {
+      return () => {
+        if (op_input == null) {
+          first_num += n;
+          cp_input_num.value = first_num;
+        }
+        else {
+          second_num += n;
+          cp_input_num.value = second_num;
+        }
+      };
+    }
+
+    const opFunc = (op) => () => {
+      switch (op) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+          op_input = op
+          cp_input_op.value = op_input
+          break;
+
+        case '=':
+          switch (op_input) {
+            case '+':
+              cp_input_num.value = parseInt(first_num) + parseInt(second_num);
+              break;
+            case '-':
+              cp_input_num.value = parseInt(first_num) - parseInt(second_num);
+              break;
+            case '*':
+              cp_input_num.value = parseInt(first_num) * parseInt(second_num);
+              break;
+            case '/':
+              cp_input_num.value = parseInt(first_num) / parseInt(second_num);
+              break;
+          }
+          break;
+        case 'clear':
+          // to do
+          cp_input_op.value = '';
+          cp_input_num.value = '';
+          first_num = '';
+          second_num = '';
+          op_input = null;
+          break;
+      }
+    }
+    cp_input_num = document.querySelector('#result');
+    cp_input_op = document.querySelector('#operator')
+
+    document.querySelector('#n0').addEventListener('click', numFunc(0));
+    document.querySelector('#n1').addEventListener('click', numFunc(1));
+    document.querySelector('#n2').addEventListener('click', numFunc(2));
+    document.querySelector('#n3').addEventListener('click', numFunc(3));
+    document.querySelector('#n4').addEventListener('click', numFunc(4));
+    document.querySelector('#n5').addEventListener('click', numFunc(5));
+    document.querySelector('#n6').addEventListener('click', numFunc(6));
+    document.querySelector('#n7').addEventListener('click', numFunc(7));
+    document.querySelector('#n8').addEventListener('click', numFunc(8));
+    document.querySelector('#n9').addEventListener('click', numFunc(9));
+
+    document.querySelector('#op_plus').addEventListener('click', opFunc('+'));
+    document.querySelector('#op_sub').addEventListener('click', opFunc('-'));
+    document.querySelector('#op_mul').addEventListener('click', opFunc('*'));
+    document.querySelector('#op_div').addEventListener('click', opFunc('/'));
+    document.querySelector('#op_clr').addEventListener('click', opFunc('clear'));
+    document.querySelector('#op_calc').addEventListener('click', opFunc('='));
+  </script>
+</body>
+
+</html>
