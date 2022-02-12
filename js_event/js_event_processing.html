@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div>
+      <div>
+        <input type="checkbox">
+        <label for="">exercise</label>
+      </div>
+      <div>
+        <input type="checkbox">
+        <label for="">shopping</label>
+      </div>
+    </div>
+
+    <script>
+      const inputs = document.querySelectorAll('input'); // list
+      inputs.forEach((_ip, _idx)=>{
+        _ip.addEventListener('click', (event)=>{
+          console.log(_idx + ' bubble phase : input click event occured!');
+          event.stopPropagation();
+          // 위로 다시 전달이 되지 않음!, 옆으로 가는 것은 못막음
+
+          // 옆으로 가는 것을 막으려면?
+          event.stopImmediatePropagation();
+          // 두 번째 이벤트 리스너는 수행이 되지 않음을 알 수 있음!
+        });
+        // bubble phase에 수행되는 이벤트 리스너
+
+        _ip.addEventListener('click', ()=>{
+          console.log(_idx + ' capture phase: input click event occured!');
+        }, true); // capture phase에 수행되는 이벤트 리스너
+        // true -> 캡쳐 페이즈에서 수행된다는 것을 암시!
+      });
+      inputs.forEach((_ip, _idx)=>{
+        _ip.addEventListener('click', ()=>{
+          console.log(_idx + ' bubble phase : second event listner, click event occured!');
+        }); // false 생략 -> 버블 페이즈에서 수행되는 리스너
+      });
+      
+      // event listner about div
+      const divs = document.querySelectorAll('div');
+      divs.forEach((_dv, _idx)=>{
+        _dv.addEventListener('click', ()=>{
+          console.log(_idx + ' bubble phase : div event occured!!');
+        });
+
+        _dv.addEventListener('click', ()=>{
+          console.log(_idx + ' capture phase : div event occured!!');
+        }, true);
+      });
+
+      // capture -> target -> bubble phase
+      // capture phase
+      // 찾으면 target phase!
+      // div - div - input - div - div, capture phase를 역방향으로! -> event bubble phase
+      // 공기 방울이 위로 떠오른다는 것에서 이름 착안!
+      // eventlistener -> bubble phase 시점에 수행! 그래서 역순으로 호출됨
+
+
+      // 이러한 이벤트 시스템에 대해 알고 있을 필요가 있음!
+      // APP or GUI 개발할 때 이러한 구조를 가짐!
+      // 다른 시스템의 이벤트를 더 쉽게 이해할 수 있게 됨!
+      // 대부분의 이벤트는 버블 페이즈로 처리
+
+
+      // propagation : 전달
+      // event propagation stop!
+      
+    </script>
+  </body>
+</html>
+
