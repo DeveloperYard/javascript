@@ -3,53 +3,81 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <div>
-      <div>
-        <input type="checkbox">
+    <div id = 'outside'>
+        <input type="checkbox" id ='i1'>
         <label for="">exercise</label>
-      </div>
-      <div>
-        <input type="checkbox">
+
+        <input type="checkbox" id = 'i2'>
         <label for="">shopping</label>
-      </div>
+
+        <input type="checkbox" id = 'i3'>
+        <label for="">dining</label>
+
+        <input type="checkbox" id = 'i4'>
+        <label for="">sleepping</label>
     </div>
 
     <script>
-      const inputs = document.querySelectorAll('input'); // list
-      inputs.forEach((_ip, _idx)=>{
-        _ip.addEventListener('click', (event)=>{
-          console.log(_idx + ' bubble phase : input click event occured!');
-          event.stopPropagation();
-          // 위로 다시 전달이 되지 않음!, 옆으로 가는 것은 못막음
 
-          // 옆으로 가는 것을 막으려면?
-          event.stopImmediatePropagation();
-          // 두 번째 이벤트 리스너는 수행이 되지 않음을 알 수 있음!
-        });
-        // bubble phase에 수행되는 이벤트 리스너
-
-        _ip.addEventListener('click', ()=>{
-          console.log(_idx + ' capture phase: input click event occured!');
-        }, true); // capture phase에 수행되는 이벤트 리스너
-        // true -> 캡쳐 페이즈에서 수행된다는 것을 암시!
-      });
-      inputs.forEach((_ip, _idx)=>{
-        _ip.addEventListener('click', ()=>{
-          console.log(_idx + ' bubble phase : second event listner, click event occured!');
-        }); // false 생략 -> 버블 페이즈에서 수행되는 리스너
+      // event delegation, 이벤트 위임!
+      // 제일 바깥 쪽에 걸었음에도 불구하고, capture phase로 들어가서 INPUT에서 이벤트가 호출됨!
+      // parent or child -> parent에 event를 걸어도 child 확인 가능!
+      const cp_div = document.querySelector('#outside');
+      // event listner 하나만으로도 아이디로 구별 가능
+      cp_div.addEventListener('click', (event)=>{
+        // event listner 두 개 걸어야 각각의 이벤트마다 처리 가능
+        if (event.target.id == 'i1'){
+          console.log('exercise');
+        }
+        else if (event.target.id == 'i2'){
+          console.log('shopping');
+        }
+        else if (event.target.id == 'i3'){
+          console.log('dining');
+        }
+        else if (event.target.id == 'i4'){
+          console.log('sleeping');
+        }
       });
       
-      // event listner about div
-      const divs = document.querySelectorAll('div');
-      divs.forEach((_dv, _idx)=>{
-        _dv.addEventListener('click', ()=>{
-          console.log(_idx + ' bubble phase : div event occured!!');
-        });
-
-        _dv.addEventListener('click', ()=>{
-          console.log(_idx + ' capture phase : div event occured!!');
-        }, true);
+      cp_div.addEventListener('click', (event)=>{
+        console.log('div event processing');
       });
+      // const inputs = document.querySelectorAll('input'); // list
+      // inputs.forEach((_ip, _idx)=>{
+      //   _ip.addEventListener('click', (event)=>{
+      //     console.log(_idx + ' bubble phase : input click event occured!');
+      //     event.stopPropagation();
+      //     // 위로 다시 전달이 되지 않음!, 옆으로 가는 것은 못막음
+
+      //     // 옆으로 가는 것을 막으려면?
+      //     event.stopImmediatePropagation();
+      //     // 두 번째 이벤트 리스너는 수행이 되지 않음을 알 수 있음!
+      //   });
+      //   // bubble phase에 수행되는 이벤트 리스너
+
+      //   _ip.addEventListener('click', ()=>{
+      //     console.log(_idx + ' capture phase: input click event occured!');
+      //   }, true); // capture phase에 수행되는 이벤트 리스너
+      //   // true -> 캡쳐 페이즈에서 수행된다는 것을 암시!
+      // });
+      // inputs.forEach((_ip, _idx)=>{
+      //   _ip.addEventListener('click', ()=>{
+      //     console.log(_idx + ' bubble phase : second event listner, click event occured!');
+      //   }); // false 생략 -> 버블 페이즈에서 수행되는 리스너
+      // });
+      
+      // // event listner about div
+      // const divs = document.querySelectorAll('div');
+      // divs.forEach((_dv, _idx)=>{
+      //   _dv.addEventListener('click', ()=>{
+      //     console.log(_idx + ' bubble phase : div event occured!!');
+      //   });
+
+      //   _dv.addEventListener('click', ()=>{
+      //     console.log(_idx + ' capture phase : div event occured!!');
+      //   }, true);
+      // });
 
       // capture -> target -> bubble phase
       // capture phase

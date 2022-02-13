@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <style>
+      table{
+        border-collapse: collapse;
+        /* default -> separate */
+      }
+      td{
+        width: 50px;
+        height: 50px;
+        border:3px solid black;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 각 칸은 td 라고 함. table속 tr = [td, td, ..., td] 가 계층적으로 있는 형태-->
+    <!-- <table> 수동 방법!
+      
+      <tr>
+        <td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td>
+      </tr>
+      <tr>  
+        <td></td><td></td><td></td>
+      </tr>
+    </table>
+    <div id='result'>
+      결과 표시
+    </div> -->
+    <script>  
+      // table을 만들고 table 속에 tr을 세 개 붙여 만들고, tr속에선 td를 붙여서 만듦
+      // 크기 조절할 때에 쌩 html로 만드는 것보다 더 용이!
+
+      const cp_table = document.createElement('table');
+      const cp_result = document.createElement('div');
+      let mark = 'O';
+      let count = 0;
+      // td 위치를 기준으로 승패를 판단!
+      const check_win = (_td)=>{
+        // td가 몇 행 몇 열에 존재하는 것인지 위치를 뽑음!
+        let row_idx = _td.parentNode.rowIndex;
+        let col_idx = _td.cellIndex;
+
+        // 가로 검사
+        if (board[row_idx][0].textContent === mark && 
+            board[row_idx][1].textContent === mark && 
+            board[row_idx][2].textContent === mark){
+              return true;
+        }
+        // 세로 검사
+        if (board[0][col_idx].textContent === mark && 
+            board[1][col_idx].textContent === mark && 
+            board[2][col_idx].textContent === mark){
+              return true;
+        }
+        // 대각선 검사, back-slash
+        if (board[0][0].textContent === mark &&
+            board[1][1].textContent === mark &&
+            board[2][2].textContent === mark){
+              return true;
+        }
+        // slash 검사
+        if (board[0][2].textContent === mark &&
+            board[1][1].textContent === mark &&
+            board[2][0].textContent === mark){
+              return true;
+        }
+        // winner 없으면!
+        return false;
+      };
+      const table_event_listner = (event)=>{
+        const which_td = event.target.closest('td');
+
+        if(which_td.textContent !== ''){
+          return;
+        }
+        which_td.textContent = mark;
+        count+=1
+        if (check_win(which_td)){
+          cp_result.textContent = mark+'가 이겼습니다.';
+          // 승패가 나면 더 이상 이벤트리스너가 실행되지 않도록 이벤트리스너를 삭제함!
+          cp_table.removeEventListener('click', table_event_listner);
+          return;
+        };
+
+        // 모든 칸이 채워졌는가? -> 무승부! and remove eventListner
+        // 1. 개수 카운트!
+        // 이게 아래 방법보다는 조금 더 메모리 상으로 효율적임!
+        if (count === 9){
+          cp_result.textContent = '무승부 입니다.';
+          cp_table.removeEventListener('click', table_event_listner);
+        }
+
+        // 2. 모든 칸에 대해 true라면 성립!
+        // 이건 각 배열을 1차원 배열로 만드는 것이므로 overload가 큼!
+        // 시간 복잡도 상승
+        // if (board.flat().every((_td)=>_td.textContent !== '') === true){
+        //   cp_result.textContent = '무승부 입니다.';
+        //   cp_table.removeEventListener('click', table_event_listner);
+        //   return;
+        // }
+
+        mark = (mark === 'O') ? 'X' : 'O';
+      };
+      // 별도의 테이블을 만들어 td들을 넣고 값을 뽑아 새로운 2차원 배열을 만듦!
+      const board = []
+
+      
+
+      // table 칸 만들기!
+      for(let i = 0; i<3; i++){ // tr
+        const cp_tr = document.createElement('tr');
+        const t_row = []
+        for (let j = 0; j<3; j++){ // creating td
+          const cp_td = document.createElement('td');
+          cp_tr.append(cp_td);
+          t_row.push(cp_td);
+        }
+        cp_table.append(cp_tr);
+        board.push(t_row);
+      }
+      
+
+      document.body.append(cp_table);
+      document.body.append(cp_result);
+      
+      cp_table.addEventListener('click', table_event_listner);
+    </script>
+  </body>
+</html>
