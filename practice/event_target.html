@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset='utf-8'>
+  </head>
+  <body>
+    <div id="hi">
+      <span>test</span>
+    </div>
+    <script>
+      const checkTarget = (event)=>{
+        let ele = event.currentTarget;
+        console.log(ele);
+        console.log(event.target);
+      }
+      
+      const cp_div = document.querySelector('#hi');
+      cp_div.addEventListener('click', checkTarget);
+
+      
+
+      // event target example
+
+      // // create list
+      // const ul = document.createElement('ul');
+      // document.body.appendChild(ul);
+
+      // const li1 = document.createElement('li');
+      // const li2 = document.createElement('li');
+
+      // ul.appendChild(li1);
+      // ul.appendChild(li2);
+
+      // const hide = (event)=>{
+      //   // e.target은 사용자가 클릭한 <li> 요소를 가리킴
+      //   // 여기서 e.currentTarget은 부모인 <ul>을 가리킬 것
+      //   console.log(event.target);
+      //   console.log(event.currentTarget);
+      //   event.target.style.visibility = 'hidden';
+      // }
+
+      // ul.addEventListener('click', hide, false);
+
+      // event current target example
+
+      // const hide = (event)=>{
+      //   event.currentTarget.style.visibility = 'hidden';
+      //   console.log(event.currentTarget);
+      // }
+
+      // var ps = document.getElementByTagName('p');
+
+      // for(let i = 0; i<ps.length; i++){
+      //   // console: print the clicked <p> element
+      //   ps[i].addEventListner('click', hide, false);
+      // }
+
+      // // console: print <body>
+      // document.body.addEventListener('click', hide, false);
+
+      // click around and make paragraphs disappear
+    </script>
+  </body>
+</html>
