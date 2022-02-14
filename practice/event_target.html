@@ -9,10 +9,12 @@
     <script>
       const checkTarget = (event)=>{
         let ele = event.currentTarget;
+        // current Target -> event binded div element를 반환
         console.log(ele);
         console.log(event.target);
+        // event Target -> 클릭된 요소를 반환
       }
-      
+
       const cp_div = document.querySelector('#hi');
       cp_div.addEventListener('click', checkTarget);
 
