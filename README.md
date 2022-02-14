@@ -1,2 +1,2 @@
 # javascript
-javascript document, reference 후 정리
+JavaScript reference document, youtube etc
