@@ -1,0 +1,47 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+    <script>
+      // 여러 사람들을 계속 이렇게 객체를 입력해서 쓸래? -> 비효율적!, 따라서 클래스 이용하는 것이 좋음
+      // java evolved -> kotlin!  
+
+      'use strict';
+      // 조금이라도 잘못되면 바로 알려줘!
+      // const k = 10;
+      // // y = 10; -> use strict 없으면 문제없으나, 있으면 문제!! 어디서 사용 중인 변수인지 모르기 때문에
+      // console.log(`k is : ${k}`);
+
+      // 클래스 이름은 대문자!, 하나의 형태를 추상화 시켜 객체를 찍어낼 수 있도록 함
+      // 여러 언어들이 클래스를 대문자로 시작함, 관습!
+
+      // 클래스를 정의할 때 데이터를 식별하고, 그 데이터를 활용하는 방법까지 정의해 놓으면 좋겠다!
+      // -> 객체 지향 프로그래밍의 시작점.
+      class Person{
+        constructor(_name, _age){
+          this.name = _name; // default value는 없나?
+          this.age = _age          
+        }
+        // 정보를 처리하는 방법까지 정의!
+        show_info(){
+          console.log(`my info: ${this.name} is ${this.age} yrs old.`);
+        }
+      }
+
+      const p = new Person('jim', 20); // 생성자 정보를 넣어서 생성!
+      // const p = {'name':'jim', age:20} // exactly same!
+      
+      const q = new Person('jane', 21);
+
+      // console.log(p);
+      // console.log(q);
+
+      p.show_info(); // method use!
+      q.show_info();
+      
+
+    </script>
+  </body>
+</html>
+

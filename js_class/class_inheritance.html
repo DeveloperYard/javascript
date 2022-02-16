@@ -1,0 +1,90 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+    <script>
+
+      'use strict';
+      
+
+
+      class Person{
+        constructor(_name, _age){
+          // 보통 생성자 안에서 정의하는 것이 좋으나, js는 유연해서 add_city_info와 같이 그때그때 데이터 처리 가능!
+          // 그러나, 가독성에 문제가 있음!
+          // 메소드들이 저 밑에 구석에 가서 처리하게 되면 코드를 뒤져봐야 함. 별루!
+          this.name = _name; // default value는 없나?
+          this.age = _age          
+        }
+
+        add_city_info(_city){
+          this.city = _city;
+        }
+
+        // 정보를 처리하는 방법까지 정의!
+        show_info(){
+          console.log(`my info: ${this.name} is ${this.age} yrs old. He(She) lives in ${this.city}`);
+        }
+
+        is_order_than(value){
+          if (this.age > value){
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+      }
+      class A {};
+
+      // Java 방식을 그대로 따와서 따오는 것!
+      // 여러 가지 하려면 콤마로 구분!
+
+      // Person이 parent class, Student가 child class
+      // c++에는 상속이 여러가지가 가능함, 여러 문제가 발생
+      // JavaScript => 하나의 부모만 상속할 수 있음!!
+      class Student extends Person{
+        // 이름, 지역 전부 다시 써야함?
+        // ㄴㄴ 상속!
+        // 종합 선물 세트 -> 여러 군데에서 제품을 받아와서 쓰는 것 : Inheritance! 상속
+        constructor(_name, _age, _dream){
+          super(_name, _age);
+          // super를 통해 person의 constructor call!
+          this.dream = _dream;
+        }
+        
+        show_info(){
+          // override mechanism
+          // Person의 show_info 위에 Student의 show_info가 올라탐!
+          // 따라서 super.show_info()를 안하면 자식의 show_info()가 호출됨!
+          // 이것이 오버라이드
+          super.show_info();
+          // 부모 클래스의 메서드를 호출
+          // 상속받은 것도 찍고, 부가적인 것도 찍음!(꿈)
+          console.log(`His(Her) dream is ${this.dream}`);
+        }
+      }
+      
+      const s = new Student('tom', 19, 'pilot');
+      s.add_city_info('incheon');
+      s.show_info();
+
+      const p = new Person('jim', 20);
+      const q = new Person('jane', 21);
+
+      // p.add_city_info('seoul');
+      // p.show_info();
+      // console.log(`${p.name} is older than 19?`);
+      // console.log(p.is_order_than(19));
+      // p.add_city_info('busan');
+      // q.show_info();
+      // console.log(`${q.name} is older than 19?`);
+      // console.log(q.is_order_than(19));
+      
+      
+
+    </script>
+  </body>
+</html>
+
