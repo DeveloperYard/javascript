@@ -1,0 +1,25 @@
+<html>
+  <head>
+
+    <script src="./promise.js" defer>
+      // head측으로 빼서 별도의 파일로 만듦!
+      // web server에서 src 요청!
+      // defer : HTMl, JS 파일이 둘 다 동시에 로딩이 되는데, (js가 더 나중에 로딩됨! script를 확인하고)
+      // HTMl파일을 받는 중에 JS파일을 다운 받는 것이 끝날 수 있음. JS가 더 작은 경우
+      // JS 파일이 HTML 파일을 참조하는데, JS파일이 HTML 파일을 다운받는 도중에 실행되면 화면이 망가질 수 있음
+      // 그래서 JS 파일이 전부 다운이 완료되었다고 할 지라도, HTML 파일을 다운받은 후 실행될 수 있도록 뒤로 지연시킴!(defer)
+      // JS가 HTML과 관련이 없으면 defer keyword 필요 없음!
+      // 하지만 참조한다면 defer keyword를 사용해주는 것이 좋음!
+      
+      // 기본
+      // HTML파일이 로딩되다가 js파일도 같이 로딩됨
+      // 여러 개 파일을 다운로드하는 것과 같은 개념!
+      // 다운을 받고 web browser가 렌더링!(graphical하게 표현하는 것)
+      // js는 WB가 러닝함.
+    </script>
+  </head>
+  <body>
+    <h1>Hello!!</h1>
+    
+  </body>
+</html>
